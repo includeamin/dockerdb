@@ -111,6 +111,6 @@ class Mongo(dockerdb.service.Service):
     def factory_reset(self):
         """factory reset the database"""
         client = self.pymongo_client()
-        for db in client.database_names():
+        for db in client.list_database_names():
             if db not in ('admin', 'config', 'local'):
                 client.drop_database(db)

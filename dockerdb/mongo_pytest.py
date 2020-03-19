@@ -48,7 +48,7 @@ def ensure_service(version, replicaset, port, client_args):
             client_args=client_args)
 
 
-def mongo_fixture(scope='function', versions=['latest'], data=None,
+def mongo_fixture(scope='function', versions=None, data=None,
                   restore=None, reuse=True, replicaset=None, port=27017,
                   client_args=None):
     """create ficture for py.test
@@ -74,6 +74,8 @@ def mongo_fixture(scope='function', versions=['latest'], data=None,
     """
 
     # parallelized start of different versions
+    if versions is None:
+        versions = ['latest']
     if reuse:
         for version in versions:
             ensure_service(version, replicaset, port, client_args)
